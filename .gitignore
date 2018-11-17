@@ -1,5 +1,9 @@
 # Python
 **/.env
+**/__pycache__
 
 # VSCode
 **/.vscode
+
+# Google
+**/google_credentials.json
