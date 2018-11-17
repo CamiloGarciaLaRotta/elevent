@@ -28,9 +28,9 @@
     curl -i -H "Content-Type: application/json" -d@events_payload.json localhost:5000/events
   ```
 ## Testing the API via Front-end
-- Open in a browser `/static/index.html`
+- Open in a browser `frontend/static/index.html`
   ```bash
-    google-chrome static/index.html
+    google-chrome ../frontend/static/index.html
   ```
 - Open the google dev tools (right click in the website, inspect)
 - Check the console output
