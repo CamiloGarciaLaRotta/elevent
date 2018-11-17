@@ -9,7 +9,14 @@
 </head>
 <body>
   <div id="input">
-
+    <select id="city_select" onchange="eventsByCity.call(this, event)">
+      <option value="" selected disabled hidden>Choose city</option>
+      <option name="ottawa" value="ottawa">Ottawa</option>
+      <option name="montreal" value="montreal">Montreal</option>
+      <option name="toronto" value="toronto">Toronto</option>
+    </select>
+    <!-- OR
+    <button onclick="eventsByCoord()">Locate Me</button> -->
   </div>
   <div id="output">
 

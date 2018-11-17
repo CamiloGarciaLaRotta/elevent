@@ -20,7 +20,7 @@ nlp_client = language.LanguageServiceClient()
 def routes_get():
 	'''
 	Return list of events in target city,country that contain the target keywords
-	Expects a payload of the form: {"venue": {"city": <city>, "country": <country>}, "footprint": [<text>], "limit": <int>}
+	Expects a payload of the form: {"city": {"city": <city>, "country": <country>}, "footprint": [<text>], "limit": <int>}
 	'''
 
 	if not request.data:
@@ -32,8 +32,6 @@ def routes_get():
 
 	payload = json.loads(request.data)
 
-	city = payload['venue']['city']
-	country = payload['venue']['country']
 	footprint = payload['footprint']
 	limit = payload['limit']
 
@@ -41,7 +39,22 @@ def routes_get():
 	keywords = nlp.entities(",".join(footprint), app.config['MIN_SALIENCE'], nlp_client)
 	# keywords = nlp.classifications(",".join(footprint), app.config['MIN_CONFIDENCE'], nlp_client)
 
-	related_events = events.events(city, country, ','.join(keywords), limit, meetup_client)
+	related_events = []
+	if 'city' in payload:
+		city = payload['city']['city']
+		country = payload['city']['country']
+		related_events = events.by_city(city, country, ','.join(keywords), limit, meetup_client)
+	elif 'coord' in payload:
+		lat = payload['coord']['lat']
+		lon = payload['coord']['lon']
+		print(f'{lat}, {lon}')
+		related_events = events.by_coord(lat, lon, ','.join(keywords), limit, meetup_client)
+	else:
+		missing_location_message = 'malformed POST request: missing city or coord field'
+		app.logger.warn(missing_location_message)
+		error = {'error' : missing_location_message}
+		res =  jsonify(error), 400
+		return res
 
 	return jsonify(related_events), 200
 

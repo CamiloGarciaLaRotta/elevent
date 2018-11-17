@@ -1,22 +1,46 @@
-function main() {
+"use strict;"
 
-  const payload = {
-    venue: {
-      'city': "montreal",
-      'country': "ca"
+const footprint = [
+    "This message is especially for beginners interested in learning French. These are not private lessons but a sharing of knowledge in a casual and informal atmosphere. I'm not a professional teacher but I can help you to acquire the basics of French language.",
+    "In this class we will focus on improving your understanding of English Grammar and improving your vocabulary. The topics selected for teaching will be based on the needs of the students in the class",
+    " Who we are: We are a group of people from a variety of different countries that meet once a week to chat, meet new people and practice other language(s)."
+  ]
+
+const limit = 5
+
+function eventsByCity(event) {
+  cityPayload = {
+    city: {
+      city: this.options[this.selectedIndex].getAttribute('value'),
+      country: 'ca'
     },
-    footprint: [
-      "This message is especially for beginners interested in learning French. These are not private lessons but a sharing of knowledge in a casual and informal atmosphere. I'm not a professional teacher but I can help you to acquire the basics of French language.",
-      "In this class we will focus on improving your understanding of English Grammar and improving your vocabulary. The topics selected for teaching will be based on the needs of the students in the class",
-      " Who we are: We are a group of people from a variety of different countries that meet once a week to chat, meet new people and practice other language(s)."
-    ],
-    limit: 3
-  };
+    footprint: footprint,
+    limit: limit
+  }
 
-  post(payload).then(events => {
-    console.log(events);
-    displayEventsAsList(events);
-  })
+  post(cityPayload).then(events => { displayEventsAsList(events); })
+}
+
+function eventsByCoord(event) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      coordPayload = {
+        coord: {
+          lon: position.coords.longitude,
+          lat: position.coords.latitude
+        },
+        footprint: footprint,
+        limit: limit
+      }
+      console.log('heeeeere')
+      post(coordPayload).then(events => {
+        console.log(events);
+        displayEventsAsList(events); })
+      console.log('not heheeeeere')
+    });
+  } else {
+      alert("Geolocation is not supported by this browser.");
+  }
 }
 
 async function post(payload) {
@@ -48,7 +72,5 @@ function displayEventsAsList(events) {
     return result;
   }, '');
 
-  document.getElementById('main').innerHTML = `<ol>${eventList}</ol>`
+  document.getElementById('output').innerHTML = `<ol>${eventList}</ol>`
 }
-
-(() => main())()
