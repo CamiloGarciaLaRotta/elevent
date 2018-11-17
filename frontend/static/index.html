@@ -5,21 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
+  <p>YouTube Data API Quickstart</p>
+
+  <!--Add buttons to initiate auth sequence and sign out-->
+  <button id="authorize-button" style="display: none;">Authorize</button>
+  <button id="signout-button" style="display: none;">Sign Out</button>
+
+  <pre id="content"></pre>
+
   <div id="input">
     <select id="city_select" onchange="eventsByCity.call(this, event)">
-      <option value="" selected disabled hidden>Choose city</option>
-      <option name="ottawa" value="ottawa">Ottawa</option>
-      <option name="montreal" value="montreal">Montreal</option>
-      <option name="toronto" value="toronto">Toronto</option>
-    </select>
-    <!-- OR
-    <button onclick="eventsByCoord()">Locate Me</button> -->
-  </div>
-  <div id="output">
+        <option value="" selected disabled hidden>Choose city</option>
+        <option name="ottawa" value="ottawa">Ottawa</option>
+        <option name="montreal" value="montreal">Montreal</option>
+        <option name="toronto" value="toronto">Toronto</option>
+      </select>
+      <!-- OR
+        <button onclick="eventsByCoord()">Locate Me</button> -->
+      </div>
+      <div id="output">
 
-  </div>
+      </div>
+
+      <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+  <script src="index.js"></script>
 </body>
 </html>
+
