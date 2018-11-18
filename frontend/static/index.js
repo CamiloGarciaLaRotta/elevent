@@ -4,6 +4,8 @@
 // TODO this could be a radio button with options: show 10, 15, 50, all
 const limit = 10
 
+var used_keywords;
+
 // get the events related to the footprint of the user in the chosen city
 function eventsByCity(event) {
   getFootprint().then(footprint => {
@@ -18,10 +20,18 @@ function eventsByCity(event) {
 
     post(cityPayload).then(response => {
       console.log(response)
+      used_keywords = response.keywords;
       displayEventsAsList(response.events);
       displayKeywordsAsList(response.keywords);
     })
   })
+}
+
+function remove_keyword(kw){
+  var index = used_keywords.indexOf(kw);
+  if (index !== -1) used_keywords.splice(index, 1);
+  displayKeywordsAsList(used_keywords);
+
 }
 
 // make a POST request with the payload to the backend
@@ -66,16 +76,24 @@ function displayEventsAsList(events) {
 }
 // generate a list of events in the DOM
 function displayKeywordsAsList(keywords) {
+  
   let keywords_list = keywords.reduce((result, word) => {
+    var len = 6;
+    if(String(word).length > 20){
+      len = 12;
+    }
     result += `
-    <li>
+    <div class="col m${len}" style="padding-top:3px;" onclick="remove_keyword(\'${word}\')">
     <a class=" btn-small waves-effect waves-light red" >${word} <i class="material-icons" style="vertical-align: bottom; font-size: 15px;"  >cancel</i></a>
-    </li>`
+    </div>`
     return result;
   }, '');
 
-  document.getElementById('keywords').innerHTML = `<ul>${keywords_list}</ul>`
+  document.getElementById('keywords').innerHTML = `<div class="row">${keywords_list}</div>`
 }
+
+
+
 
 
 // fetch the footprint of the logged-in user
@@ -95,7 +113,7 @@ async function getFootprint() {
   return  footprint;
 }
 
-// remove noice from youtube channel descriptions
+// remove noise from youtube channel descriptions
 let clean = text =>
   text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
 
