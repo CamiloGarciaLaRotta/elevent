@@ -1,0 +1,11 @@
+/* CARDS */
+.card {
+    width:400px;
+}
+
+/* INPUT */
+#input {
+    position: fixed;
+    overflow:auto;
+}
+   

@@ -2,7 +2,7 @@
 
 // limit of events to show
 // TODO this could be a radio button with options: show 10, 15, 50, all
-const limit = 5
+const limit = 10
 
 // get the events related to the footprint of the user in the chosen city
 function eventsByCity(event) {
@@ -53,7 +53,7 @@ function displayEventsAsList(events) {
     <div>
     <a href = "${event.url}" target="_blank">
       <div class="col s12 m5">
-      <div class="card-panel red z-depth-2 hoverable " id="hov" style="height:200px">
+      <div class="card-panel red z-depth-2 hoverable small" id="hov" style="height:200px">
         <span class="white-text"> <p id="card-title">${event.name}</p>${event.group}
         </span>
       </div>
