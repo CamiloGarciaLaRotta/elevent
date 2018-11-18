@@ -1,13 +1,10 @@
 "use strict;"
 
-const footprint = [
-  "This message is especially for beginners interested in learning French. These are not private lessons but a sharing of knowledge in a casual and informal atmosphere. I'm not a professional teacher but I can help you to acquire the basics of French language.",
-  "In this class we will focus on improving your understanding of English Grammar and improving your vocabulary. The topics selected for teaching will be based on the needs of the students in the class",
-  " Who we are: We are a group of people from a variety of different countries that meet once a week to chat, meet new people and practice other language(s)."
-]
-
+// limit of events to show
+// TODO this could be a radio button with options: show 10, 15, 50, all
 const limit = 5
 
+// get the events related to the footprint of the user in the chosen city
 function eventsByCity(event) {
   getFootprint().then(footprint => {
     cityPayload = {
@@ -19,10 +16,15 @@ function eventsByCity(event) {
       limit: limit
     }
 
-    post(cityPayload).then(response => { displayEventsAsList(response); })
+    post(cityPayload).then(response => {
+      console.log(response)
+      displayEventsAsList(response.events);
+      displayKeywordsAsList(response.keywords);
+    })
   })
 }
 
+// make a POST request with the payload to the backend
 async function post(payload) {
   let rawResponse = await fetch('http://localhost:5000/events', {
     method: 'POST',
@@ -38,13 +40,13 @@ async function post(payload) {
 
   try {
     let events = await rawResponse.json()
-    console.log(events)
     return events
   }catch(e){
     console.log(e)
   }
 }
 
+// generate a list of events in the DOM
 function displayEventsAsList(events) {
   let eventList = events.reduce((result, event) => {
     result += `
@@ -59,10 +61,23 @@ function displayEventsAsList(events) {
     return result;
   }, '');
 
-  document.getElementById('output').innerHTML = `<ol>${eventList}</ol>`
+  document.getElementById('events').innerHTML = `<ol>${eventList}</ol>`
+}
+// generate a list of events in the DOM
+function displayKeywordsAsList(keywords) {
+  let keywords_list = keywords.reduce((result, word) => {
+    result += `
+    <li>
+      <code>${word}</code>
+    </li>`
+    return result;
+  }, '');
+
+  document.getElementById('keywords').innerHTML = `<ul>${keywords_list}</ul>`
 }
 
 
+// fetch the footprint of the logged-in user
 async function getFootprint() {
   let response = await gapi.client.youtube.subscriptions.list({
     'part': 'snippet',
@@ -79,8 +94,15 @@ async function getFootprint() {
   return  footprint;
 }
 
+// remove noice from youtube channel descriptions
 let clean = text =>
-text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
+  text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
+
+
+
+
+
+// GOOGLE API CODE
 
 // Client ID and API key from the Developer Console
 var CLIENT_ID = '636309282143-ud66bqrocla99eok4hcq199mvlp76upo.apps.googleusercontent.com';
@@ -92,9 +114,10 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/r
 // separated them with spaces.
 var SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
 
-var authorizeButton = document.getElementById('authorize-button');
-var signoutButton = document.getElementById('signout-button');
+var authorizeButton = document.getElementById('youtube-login-button');
+var signoutButton = document.getElementById('youtube-logout-button');
 var cityDropDown = document.getElementById('city_select');
+var output = document.getElementById('output');
 
 /**
 *  On load, called to load the auth2 library and API client library.
@@ -136,6 +159,8 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     cityDropDown.style.display = 'none';
+    output.innerHTML = "";
+
   }
 }
 

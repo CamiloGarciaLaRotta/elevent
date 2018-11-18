@@ -61,7 +61,7 @@ def routes_get():
 	print(json.dumps({'events':related_events}))
 
 	# return json.dumps({'events':related_events})
-	return jsonify(related_events), 200
+	return jsonify({'events':related_events, 'keywords': list(keywords)}), 200
 
 
 if __name__ == "__main__":

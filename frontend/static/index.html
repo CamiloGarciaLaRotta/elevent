@@ -7,31 +7,26 @@
   <title>Document</title>
 </head>
 <body>
-  <p>YouTube Data API Quickstart</p>
-
-  <!--Add buttons to initiate auth sequence and sign out-->
-  <button id="authorize-button" style="display: none;">Authorize</button>
-  <button id="signout-button" style="display: none;">Sign Out</button>
-
-  <pre id="content"></pre>
+  <button id="youtube-login-button" style="display: none;">Authorize</button>
+  <button id="youtube-logout-button" style="display: none;">Sign Out</button>
 
   <div id="input">
     <select id="city_select" onchange="eventsByCity.call(this, event)" style="display: none;">
-        <option value="" selected disabled hidden>Choose city</option>
-        <option name="ottawa" value="ottawa">Ottawa</option>
-        <option name="montreal" value="montreal">Montreal</option>
-        <option name="toronto" value="toronto">Toronto</option>
-      </select>
-      <!-- OR
-        <button onclick="eventsByCoord()">Locate Me</button> -->
-      </div>
-      <div id="output">
+      <option value="" selected disabled hidden>Choose city</option>
+      <option name="ottawa" value="ottawa">Ottawa</option>
+      <option name="montreal" value="montreal">Montreal</option>
+      <option name="toronto" value="toronto">Toronto</option>
+    </select>
+  </div>
 
-      </div>
+  <div id="output">
+      <div id="events"></div>
+      <div id="keywords"></div>
+  </div>
 
-      <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
   </script>
   <script src="index.js"></script>
 </body>
