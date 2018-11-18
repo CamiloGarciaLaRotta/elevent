@@ -134,8 +134,8 @@ function displayEventsAsList(events) {
     <div>
     <a href = "${event.url}" target="_blank">
     <div class="col s12 m5">
-    <div class="card-panel cyan darken-2 z-depth-2 hoverable small" id="hov" style="height:200px">
-    <span class="white-text"> <p id="card-title">${event.name}</p>${event.group}
+    <div class="card-panel orange lighten-2 z-depth-2 hoverable small" id="hov" style="height:200px">
+    <span class="white-text"> <p id="card-title"><b>${event.name}</b></p>${event.group}
     </span>
     </div>
     </div>
