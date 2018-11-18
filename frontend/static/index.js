@@ -137,8 +137,8 @@ function displayEventsAsList(events) {
     <div>
     <a href = "${event.url}" target="_blank">
     <div class="col s12 m5">
-    <div class="card-panel orange lighten-2 z-depth-2 hoverable small" id="hov" style="height:200px">
-    <span class="white-text"> <p id="card-title"><b>${event.name}</b></p>${event.group}
+    <div class="card-panel cyan darken-1 z-depth-2 hoverable small" id="hov" style="height:200px">
+    <span class="white-text"> <p style="color: black id="card-title"><h6 style="color: #40407a"><b>${event.name}</b></h6></p>${event.group}
     </span>
     </div>
     </div>
@@ -158,7 +158,7 @@ function displayKeywordsAsList(keywords) {
     }
     result += `
     <div class="col m${len}" style="padding-top:3px;" onclick="remove_keyword(\'${word}\')">
-    <a class=" btn-small waves-effect waves-light red" >${word} <i class="material-icons" style="vertical-align: bottom; font-size: 15px;"  >cancel</i></a>
+    <a class=" btn-small waves-effect waves-light grey" >${word} <i class="material-icons" style="vertical-align: bottom; font-size: 15px;"  >cancel</i></a>
     </div>`
     return result;
   }, '');

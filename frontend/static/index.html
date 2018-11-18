@@ -42,11 +42,11 @@
   <button id="youtube-logout-button" style="display: none;">Sign Out</button>
 
 
-
+  
   <div class="row">
-    <div class="col s4">
+    <div class="col s4" >
       <div id="input">
-          <div class="card-panel #fff9c4 yellow lighten-4" id="input-doc" style="display: none;"></div>
+          <div class="card-panel #fff9c4 yellow lighten-4" id="input-doc" style="display: none; position: fixed"></div>
 
           <select id="city_select" onchange="eventsByCity.call(this, event)" style="display: none;">
               <option value="" selected disabled hidden>Choose a city</option>
@@ -77,10 +77,11 @@
           </div>
 
         </div>
+     
 
-        <div class="col s8">
+        <div class="col s8 ">
           <div class="card-panel blue lighten-3" id="output-doc" style="display: none;"></div>
-          <div id="output">
+          <div id="output" class="scrollable">
             <div id="events"></div>
           </div>
         </div>
