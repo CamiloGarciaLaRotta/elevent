@@ -24,6 +24,7 @@ Elevent makes the asumption that your digital footprint is a good-enough estimat
 - Flask
 - Google OAuth2
 - Google Youtube API v3
+- Google CLoud Natural Language API
 - Meetup API
 
 ### Frontend
