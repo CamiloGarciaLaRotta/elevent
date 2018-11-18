@@ -36,6 +36,7 @@ def routes_get():
 
 	limit = payload['limit']
 
+	keywords = []
 	# TODO uncomment the method that yields best results: entities or classification
 	if 'footprint' in payload:
 		footprint = payload['footprint']
@@ -63,9 +64,6 @@ def routes_get():
 		return res
 
 	return jsonify({'events':related_events, 'keywords': list(keywords)}), 200
-
-
-
 
 
 if __name__ == "__main__":

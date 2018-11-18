@@ -14,10 +14,11 @@ var keywordForm = document.getElementById("form-id")
 var output = document.getElementById('output');
 
 var used_keywords= [];
+var blacklisted_keywords= [];
 
- keywordAddBtn.onclick = addWord;
+keywordAddBtn.onclick = addWord;
 
- keywordForm.onsubmit= addWord;
+keywordForm.onsubmit= addWord;
 /* keywordTxtArea.parentElement.parentElement.parentElement.onkeyup = function(event){
   event.preventDefault();
 
@@ -25,12 +26,15 @@ var used_keywords= [];
   if(event.key =="Enter"){
     //addWord()
   }
-} 
- */
+}
+*/
 function addWord(){
   console.log("adding word, boii")
   if(keywordTxtArea.value != "" ){
-    used_keywords.push(keywordTxtArea.value);
+    console.log(keywords)
+    let keyword_set = new Set(used_keywords);
+    keyword_set.add(keywordTxtArea.value);
+    used_keywords = [...keyword_set];
     getEventsFromKeywords(used_keywords);
     keywordTxtArea.value = ""
   }
@@ -50,10 +54,13 @@ function eventsByCity(event) {
     }
 
     post(cityPayload).then(response => {
-      console.log(response)
-      used_keywords = response.keywords;
+      // console.log(response)
+      console.log(keywords)
+      let keyword_set = new Set(used_keywords);
+      response.keywords.forEach(word => keyword_set.add(word));
+      used_keywords = [...keyword_set];
       displayEventsAsList(response.events);
-      displayKeywordsAsList(response.keywords);
+      displayKeywordsAsList(used_keywords);
     })
   })
 }
@@ -68,13 +75,16 @@ function getEventsFromKeywords(keywords){
     keywords: keywords,
     limit: limit
   }
-    post(kwPayload).then(response => {
-      console.log(response)
-      used_keywords = response.keywords;
-      displayEventsAsList(response.events);
-      displayKeywordsAsList(response.keywords);
-    })
-  
+  post(kwPayload).then(response => {
+    // console.log(response)
+    console.log(response)
+    let keyword_set = new Set(used_keywords);
+    response.keywords.forEach(word => keyword_set.add(word));
+    used_keywords = [...keyword_set];
+    displayEventsAsList(response.events);
+    displayKeywordsAsList(used_keywords);
+  })
+
 }
 
 function remove_keyword(kw){
@@ -87,23 +97,23 @@ function remove_keyword(kw){
 // make a POST request with the payload to the backend
 async function post(payload) {
   let rawResponse = await fetch('http://localhost:5000/events', {
-    method: 'POST',
-    // mode: "same",/
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin" : "*",
-      // "Access-Control-Allow-Credentials" : true
-    },
-    body: JSON.stringify(payload)
-  });
+  method: 'POST',
+  // mode: "same",/
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin" : "*",
+    // "Access-Control-Allow-Credentials" : true
+  },
+  body: JSON.stringify(payload)
+});
 
-  try {
-    let events = await rawResponse.json()
-    return events
-  }catch(e){
-    console.log(e)
-  }
+try {
+  let events = await rawResponse.json()
+  return events
+}catch(e){
+  console.log(e)
+}
 }
 
 // generate a list of events in the DOM
@@ -112,13 +122,13 @@ function displayEventsAsList(events) {
     result += `
     <div>
     <a href = "${event.url}" target="_blank">
-      <div class="col s12 m5">
-      <div class="card-panel cyan darken-2 z-depth-2 hoverable small" id="hov" style="height:200px">
-        <span class="white-text"> <p id="card-title">${event.name}</p>${event.group}
-        </span>
-      </div>
+    <div class="col s12 m5">
+    <div class="card-panel cyan darken-2 z-depth-2 hoverable small" id="hov" style="height:200px">
+    <span class="white-text"> <p id="card-title">${event.name}</p>${event.group}
+    </span>
     </div>
-  </div>`
+    </div>
+    </div>`
     return result;
   }, '');
 
@@ -126,7 +136,7 @@ function displayEventsAsList(events) {
 }
 // generate a list of events in the DOM
 function displayKeywordsAsList(keywords) {
-  
+
   let keywords_list = keywords.reduce((result, word) => {
     var len = 6;
     if(String(word).length > 20){
@@ -165,7 +175,7 @@ async function getFootprint() {
 
 // remove noise from youtube channel descriptions
 let clean = text =>
-  text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
+text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
 
 
 
@@ -242,6 +252,8 @@ function updateSigninStatus(isSignedIn) {
 
     output.childNodes.forEach(child => child.innerHTML = "");
     cityDropDown.selectedIndex = 0;
+
+    document.getElementById('keywords').innerHTML = "";
 
   }
 }
