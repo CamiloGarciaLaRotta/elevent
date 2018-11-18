@@ -192,6 +192,53 @@ text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donat
 
 
 
+// SLIDER CODE
+
+var slider = document.getElementById('range-input');
+    noUiSlider.create(slider, {
+      start: [10],
+      connect: true,
+      step: 10,
+      range: {
+        'min': 10,
+        'max': 100
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+
+    slider.noUiSlider.on('update', function(values, handle) {
+    console.log(values)
+});
+
+slider.noUiSlider.on('update', function(values, handle) {
+  selector = document.getElementById("city_select")
+  kwPayload = {
+    city: {
+      city: selector.options[selector.selectedIndex].getAttribute('value'),
+      country: 'ca'
+    },
+    keywords: used_keywords,
+    limit: parseInt(values[0])
+  }
+  post(kwPayload).then(response => {
+    // console.log(response)
+    console.log(response)
+    let keyword_set = new Set(used_keywords);
+    response.keywords.forEach(word => {
+      if (!blacklisted_keywords.has(word)) {
+        keyword_set.add(word)
+      }
+    });
+    used_keywords = [...keyword_set];
+    displayEventsAsList(response.events);
+    displayKeywordsAsList(used_keywords);
+  })
+});
+
+
+
 
 // GOOGLE API CODE
 
