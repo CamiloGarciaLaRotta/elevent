@@ -159,7 +159,8 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     cityDropDown.style.display = 'none';
-    output.innerHTML = "";
+    output.childNodes.forEach(child => child.innerHTML = "");
+    cityDropDown.selectedIndex = 0;
 
   }
 }

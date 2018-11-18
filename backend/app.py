@@ -32,7 +32,6 @@ def routes_get():
 
 
 	payload = json.loads(request.data)
-	# print(payload)
 
 	footprint = payload['footprint']
 	limit = payload['limit']
@@ -49,7 +48,6 @@ def routes_get():
 	elif 'coord' in payload:
 		lat = payload['coord']['lat']
 		lon = payload['coord']['lon']
-		print(f'{lat}, {lon}')
 		related_events = events.by_coord(lat, lon, ','.join(keywords), limit, meetup_client)
 	else:
 		missing_location_message = 'malformed POST request: missing city or coord field'
@@ -58,9 +56,6 @@ def routes_get():
 		res =  jsonify(error), 400
 		return res
 
-	print(json.dumps({'events':related_events}))
-
-	# return json.dumps({'events':related_events})
 	return jsonify({'events':related_events, 'keywords': list(keywords)}), 200
 
 
