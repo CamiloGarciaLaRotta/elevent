@@ -298,7 +298,7 @@ function updateSigninStatus(isSignedIn) {
     cityDropDown.style.display = 'block';
     keywordTxtArea.style.display ='block'
     keywordLabel.style.display ='block';
-    keywordAddBtn.style.display='block'
+    keywordAddBtn.style.display='inline-block'
 
   } else {
     authorizeButton.style.display = 'block';
