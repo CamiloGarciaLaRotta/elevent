@@ -1,2 +1,6 @@
 -get more events from different api
 -getting events from meetup that already took place, gotta solve that one
+-improve look of the cards, make text bigger
+-choose better colors instead of all red
+-find a background image
+-fix add btn position

@@ -4,12 +4,33 @@
 // TODO this could be a radio button with options: show 10, 15, 50, all
 const limit = 10
 
+var authorizeButton = document.getElementById('youtube-login-button');
+var signoutButton = document.getElementById('youtube-logout-button');
+var cityDropDown = document.getElementById('city_select');
+var keywordTxtArea= document.getElementById("keyword");
+var keywordLabel= document.getElementById("label-keyword");
+var keywordAddBtn = document.getElementById("add-btn");
+var output = document.getElementById('output');
+
 var used_keywords= [];
 
-function addWord(obj){
-  used_keywords.push(obj.value);
-  getEventsFromKeywords(used_keywords);
-  obj.value = ""
+/* keywordAddBtn.onclick = addWord;
+keywordTxtArea.parentElement.parentElement.parentElement.onkeyup = function(event){
+  event.preventDefault();
+
+  console.log(event.key)
+  if(event.key =="Enter"){
+    //addWord()
+  }
+} */
+
+function addWord(){
+  console.log("adding word, boii")
+  if(keywordTxtArea.value != "" ){
+    used_keywords.push(keywordTxtArea.value);
+    getEventsFromKeywords(used_keywords);
+    keywordTxtArea.value = ""
+  }
 }
 
 // get the events related to the footprint of the user in the chosen city
@@ -158,11 +179,9 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/r
 // separated them with spaces.
 var SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
 
-var authorizeButton = document.getElementById('youtube-login-button');
-var signoutButton = document.getElementById('youtube-logout-button');
-var cityDropDown = document.getElementById('city_select');
-var keywordTxtArea= document.getElementById("keyword");
-var output = document.getElementById('output');
+
+
+
 
 /**
 *  On load, called to load the auth2 library and API client library.
@@ -191,6 +210,10 @@ function initClient() {
   });
 }
 
+
+
+
+
 /**
 *  Called when the signed in status changes, to update the UI
 *  appropriately. After a sign-in, the API is called.
@@ -201,12 +224,18 @@ function updateSigninStatus(isSignedIn) {
     signoutButton.style.display = 'block';
     cityDropDown.style.display = 'block';
     keywordTxtArea.style.display ='block'
+    keywordLabel.style.display ='block';
+    keywordAddBtn.style.display='block'
 
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     cityDropDown.style.display = 'none';
     keywordTxtArea.style.display ='none'
+    keywordLabel.style.display ='none';
+    keywordAddBtn.style.display='none'
+
+
     output.childNodes.forEach(child => child.innerHTML = "");
     cityDropDown.selectedIndex = 0;
 
