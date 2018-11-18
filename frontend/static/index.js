@@ -194,24 +194,21 @@ text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donat
 // SLIDER CODE
 
 var slider = document.getElementById('range-input');
-    noUiSlider.create(slider, {
-      start: [10],
-      connect: true,
-      step: 10,
-      range: {
-        'min': 10,
-        'max': 100
-      },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-
-    slider.noUiSlider.on('update', function(values, handle) {
-    console.log(values)
+slider.style.display = 'none';
+noUiSlider.create(slider, {
+  start: [10],
+  connect: true,
+  step: 10,
+  range: {
+    'min': 10,
+    'max': 100
+  },
+  format: wNumb({
+    decimals: 0
+  })
 });
-
-slider.noUiSlider.on('update', function(values, handle) {
+slider.noUiSlider.on('update', getEventsWithNewLimit);
+function getEventsWithNewLimit(values, handle) {
   limit = parseInt(values[0])
   selector = document.getElementById("city_select")
   kwPayload = {
@@ -235,9 +232,7 @@ slider.noUiSlider.on('update', function(values, handle) {
     displayEventsAsList(response.events);
     displayKeywordsAsList(used_keywords);
   })
-});
-
-
+}
 
 
 // GOOGLE API CODE
@@ -300,6 +295,8 @@ function updateSigninStatus(isSignedIn) {
     keywordLabel.style.display ='block';
     keywordAddBtn.style.display='inline-block'
 
+    slider.style.display='block';
+
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
@@ -308,8 +305,7 @@ function updateSigninStatus(isSignedIn) {
     keywordLabel.style.display ='none';
     keywordAddBtn.style.display='none';
 
-    document.getElementById('range-input').innerHTML = "";
-
+    slider.style.display='none';
 
     output.childNodes.forEach(child => child.innerHTML = "");
     cityDropDown.selectedIndex = 0;
