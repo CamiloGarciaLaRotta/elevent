@@ -27,11 +27,30 @@ function eventsByCity(event) {
   })
 }
 
+function getEventsFromKeywords(keywords){
+  selector = document.getElementById("city_select")
+  kwPayload = {
+    city: {
+      city: selector.options[selector.selectedIndex].getAttribute('value'),
+      country: 'ca'
+    },
+    keywords: keywords,
+    limit: limit
+  }
+    post(kwPayload).then(response => {
+      console.log(response)
+      used_keywords = response.keywords;
+      displayEventsAsList(response.events);
+      displayKeywordsAsList(response.keywords);
+    })
+  
+}
+
 function remove_keyword(kw){
   var index = used_keywords.indexOf(kw);
   if (index !== -1) used_keywords.splice(index, 1);
-  displayKeywordsAsList(used_keywords);
-
+  //displayKeywordsAsList(used_keywords);
+  getEventsFromKeywords(used_keywords)
 }
 
 // make a POST request with the payload to the backend

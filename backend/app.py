@@ -21,6 +21,7 @@ def routes_get():
 	'''
 	Return list of events in target city,country that contain the target keywords
 	Expects a payload of the form: {"city": {"city": <city>, "country": <country>}, "footprint": [<text>], "limit": <int>}
+	if no "footprint", then keywords needed
 	'''
 
 	if not request.data:
@@ -37,7 +38,10 @@ def routes_get():
 	limit = payload['limit']
 
 	# TODO uncomment the method that yields best results: entities or classification
-	keywords = nlp.entities(",".join(footprint), app.config['MIN_SALIENCE'], nlp_client)
+	if 'footprint' in payload:
+		keywords = nlp.entities(",".join(footprint), app.config['MIN_SALIENCE'], nlp_client)
+	else:
+		keywords = payload['keywords']
 	# keywords = nlp.classifications(",".join(footprint), app.config['MIN_CONFIDENCE'], nlp_client)
 
 	related_events = []
@@ -57,6 +61,9 @@ def routes_get():
 		return res
 
 	return jsonify({'events':related_events, 'keywords': list(keywords)}), 200
+
+
+
 
 
 if __name__ == "__main__":
