@@ -306,7 +306,9 @@ function updateSigninStatus(isSignedIn) {
     cityDropDown.style.display = 'none';
     keywordTxtArea.style.display ='none'
     keywordLabel.style.display ='none';
-    keywordAddBtn.style.display='none'
+    keywordAddBtn.style.display='none';
+
+    document.getElementById('range-input').innerHTML = "";
 
 
     output.childNodes.forEach(child => child.innerHTML = "");
