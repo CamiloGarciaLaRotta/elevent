@@ -10,20 +10,23 @@ var cityDropDown = document.getElementById('city_select');
 var keywordTxtArea= document.getElementById("keyword");
 var keywordLabel= document.getElementById("label-keyword");
 var keywordAddBtn = document.getElementById("add-btn");
+var keywordForm = document.getElementById("form-id")
 var output = document.getElementById('output');
 
 var used_keywords= [];
 
-/* keywordAddBtn.onclick = addWord;
-keywordTxtArea.parentElement.parentElement.parentElement.onkeyup = function(event){
+ keywordAddBtn.onclick = addWord;
+
+ keywordForm.onsubmit= addWord;
+/* keywordTxtArea.parentElement.parentElement.parentElement.onkeyup = function(event){
   event.preventDefault();
 
   console.log(event.key)
   if(event.key =="Enter"){
     //addWord()
   }
-} */
-
+} 
+ */
 function addWord(){
   console.log("adding word, boii")
   if(keywordTxtArea.value != "" ){
@@ -31,6 +34,7 @@ function addWord(){
     getEventsFromKeywords(used_keywords);
     keywordTxtArea.value = ""
   }
+  return false;
 }
 
 // get the events related to the footprint of the user in the chosen city
