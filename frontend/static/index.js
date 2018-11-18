@@ -1,8 +1,7 @@
 "use strict;"
 
 // limit of events to show
-// TODO this could be a radio button with options: show 10, 15, 50, all
-const limit = 10
+let limit = 10
 
 var authorizeButton = document.getElementById('youtube-login-button');
 var signoutButton = document.getElementById('youtube-logout-button');
@@ -213,6 +212,7 @@ var slider = document.getElementById('range-input');
 });
 
 slider.noUiSlider.on('update', function(values, handle) {
+  limit = parseInt(values[0])
   selector = document.getElementById("city_select")
   kwPayload = {
     city: {
@@ -220,7 +220,7 @@ slider.noUiSlider.on('update', function(values, handle) {
       country: 'ca'
     },
     keywords: used_keywords,
-    limit: parseInt(values[0])
+    limit: limit
   }
   post(kwPayload).then(response => {
     // console.log(response)
