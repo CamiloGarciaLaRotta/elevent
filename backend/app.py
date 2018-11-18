@@ -34,14 +34,16 @@ def routes_get():
 
 	payload = json.loads(request.data)
 
-	footprint = payload['footprint']
 	limit = payload['limit']
 
 	# TODO uncomment the method that yields best results: entities or classification
 	if 'footprint' in payload:
+		footprint = payload['footprint']
 		keywords = nlp.entities(",".join(footprint), app.config['MIN_SALIENCE'], nlp_client)
+
 	else:
 		keywords = payload['keywords']
+
 	# keywords = nlp.classifications(",".join(footprint), app.config['MIN_CONFIDENCE'], nlp_client)
 
 	related_events = []
