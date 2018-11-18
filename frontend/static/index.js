@@ -69,7 +69,7 @@ function displayKeywordsAsList(keywords) {
   let keywords_list = keywords.reduce((result, word) => {
     result += `
     <li>
-      <code>${word}</code>
+    <a class=" btn-small waves-effect waves-light red" >${word} <i class="material-icons" style="vertical-align: bottom; font-size: 15px;"  >cancel</i></a>
     </li>`
     return result;
   }, '');
