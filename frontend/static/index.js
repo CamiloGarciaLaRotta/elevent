@@ -11,6 +11,9 @@ var keywordLabel= document.getElementById("label-keyword");
 var keywordAddBtn = document.getElementById("add-btn");
 var keywordForm = document.getElementById("form-id")
 var output = document.getElementById('output');
+var sliderLabel = document.getElementById('slider_label');
+
+
 
 var used_keywords= [];
 let blacklisted_keywords= new Set();
@@ -302,7 +305,8 @@ function updateSigninStatus(isSignedIn) {
     keywordTxtArea.style.display ='block'
     keywordLabel.style.display ='block';
     keywordAddBtn.style.display='inline-block'
-
+    sliderLabel.style.display='block';
+    sliderLabel.style.fontSize="15px;"
     slider.style.display='block';
 
     document.getElementById('input-doc').style.display='none'
@@ -315,7 +319,7 @@ function updateSigninStatus(isSignedIn) {
     keywordTxtArea.style.display ='none'
     keywordLabel.style.display ='none';
     keywordAddBtn.style.display='none';
-
+    sliderLabel.style.display='none';
     slider.style.display='none';
 
     output.childNodes.forEach(child => child.innerHTML = "");
@@ -324,6 +328,7 @@ function updateSigninStatus(isSignedIn) {
     document.getElementById('keywords').innerHTML = "";
     document.getElementById('input-doc').style.display='block'
     document.getElementById('output-doc').style.display='block'
+    
     document.getElementById('input-doc').innerHTML = `After you login, you can choose your input parameters here`
     document.getElementById('output-doc').innerHTML =  `The events matching your footprint for the city you choose will appear here`
   }
