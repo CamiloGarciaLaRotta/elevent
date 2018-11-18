@@ -56,8 +56,7 @@ function eventsByCity(event) {
     }
 
     post(cityPayload).then(response => {
-      // console.log(response)
-      console.log(keywords)
+      console.log(response)
       let keyword_set = new Set(used_keywords);
       response.keywords.forEach(word => {
         if (!blacklisted_keywords.has(word)) {
@@ -129,6 +128,7 @@ try {
 
 // generate a list of events in the DOM
 function displayEventsAsList(events) {
+  shuffle(events)
   let eventList = events.reduce((result, event) => {
     result += `
     <div>
@@ -187,8 +187,6 @@ async function getFootprint() {
 // remove noise from youtube channel descriptions
 let clean = text =>
 text.toLowerCase().replace('subscribe', '').replace('donate', '').replace('donations', '').replace('share', '').replace('bitcoin', '')
-
-
 
 
 // SLIDER CODE
@@ -279,7 +277,17 @@ function initClient() {
 }
 
 
-
+/**
+ * Shuffles array in place. ES6 version
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 
 /**
@@ -297,6 +305,9 @@ function updateSigninStatus(isSignedIn) {
 
     slider.style.display='block';
 
+    document.getElementById('input-doc').style.display='none'
+    document.getElementById('output-doc').style.display='none'
+
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
@@ -311,7 +322,10 @@ function updateSigninStatus(isSignedIn) {
     cityDropDown.selectedIndex = 0;
 
     document.getElementById('keywords').innerHTML = "";
-
+    document.getElementById('input-doc').style.display='block'
+    document.getElementById('output-doc').style.display='block'
+    document.getElementById('input-doc').innerHTML = `After you login, you can choose your input parameters here`
+    document.getElementById('output-doc').innerHTML =  `The events matching your footprint for the city you choose will appear here`
   }
 }
 

@@ -27,7 +27,7 @@
       <div class="nav-wrapper red">
         <a href="#" class="brand-logo center">EleventAI
           <div class="btn-floating btn-small waves-effect waves-light red center" ><i class="material-icons">center_focus_strong</i></div>
-        </a> 
+        </a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a class="waves-effect waves-light btn green" id="youtube-login-button" style="display: none; margin-top: 10%">Authorize</a></li>
@@ -46,36 +46,40 @@
   <div class="row">
     <div class="col s4">
       <div id="input">
+          <div class="card-panel #fff9c4 yellow lighten-4" id="input-doc" style="display: none;"></div>
 
-        <select id="city_select" onchange="eventsByCity.call(this, event)" style="display: none;">
-            <option value="" selected disabled hidden>Choose city</option>
-            <option name="ottawa" value="ottawa">Ottawa</option>
-            <option name="montreal" value="montreal">Montreal</option>
-            <option name="toronto" value="toronto">Toronto</option>
-          </select>
-        </div>
-        <div id="range-input"></div>
-        <div id="keywords"></div>
+          <select id="city_select" onchange="eventsByCity.call(this, event)" style="display: none;">
+              <option value="" selected disabled hidden>Choose a city</option>
+              <option name="ottawa" value="ottawa">Ottawa</option>
+              <option name="montreal" value="montreal">Montreal</option>
+              <option name="toronto" value="toronto">Toronto</option>
+            </select>
+          </div>
 
-            <div class="row">
-                <form id="form-id" class="col s12">
-                  <div class="row">
+          <div id="range-input"></div>
+          <div id="keywords"></div>
 
-                    <div class="input-field col s6">
-                      <input id="keyword" type="text" class="validate">
-                      <label id="label-keyword" for="keyword">Add keyword</label>
-                    </div>
-                    <a class="btn-floating btn-small waves-effect waves-light red" id="add-btn" style="margin-top: 6%; display: none;" ><i class="material-icons">add</i></a>
-                  </div>
-                </form>
+          <div class="row">
+            <form id="form-id" class="col s12">
+              <div class="row">
+
+                <div class="input-field col s6">
+                  <input id="keyword" type="text" class="validate" style="display: none;">
+                  <label id="label-keyword" for="keyword" style="display: none;">Add keyword</label>
+                </div>
+                <a class="btn-floating btn-small waves-effect waves-light red" id="add-btn" style="margin-top: 6%; display:none" ><i class="material-icons">add</i></a>
               </div>
+            </form>
           </div>
 
-      <div class="col s8">
+        </div>
+
+        <div class="col s8">
+          <div class="card-panel blue lighten-3" id="output-doc" style="display: none;"></div>
           <div id="output">
-              <div id="events"></div>
+            <div id="events"></div>
           </div>
-      </div>
+        </div>
   </div>
 
 
