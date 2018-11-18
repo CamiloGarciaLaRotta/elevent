@@ -30,7 +30,9 @@ def routes_get():
 		res =  jsonify(error), 400
 		return res
 
+
 	payload = json.loads(request.data)
+	# print(payload)
 
 	footprint = payload['footprint']
 	limit = payload['limit']
@@ -56,6 +58,9 @@ def routes_get():
 		res =  jsonify(error), 400
 		return res
 
+	print(json.dumps({'events':related_events}))
+
+	# return json.dumps({'events':related_events})
 	return jsonify(related_events), 200
 
 
