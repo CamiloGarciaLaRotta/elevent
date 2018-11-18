@@ -14,7 +14,7 @@ var keywordForm = document.getElementById("form-id")
 var output = document.getElementById('output');
 
 var used_keywords= [];
-var blacklisted_keywords= [];
+let blacklisted_keywords= new Set();
 
 keywordAddBtn.onclick = addWord;
 
@@ -32,6 +32,9 @@ function addWord(){
   console.log("adding word, boii")
   if(keywordTxtArea.value != "" ){
     console.log(keywords)
+    if (blacklisted_keywords.has(keywordTxtArea.value)) {
+      blacklisted_keywords.delete(keywordTxtArea.value);
+    }
     let keyword_set = new Set(used_keywords);
     keyword_set.add(keywordTxtArea.value);
     used_keywords = [...keyword_set];
@@ -57,7 +60,11 @@ function eventsByCity(event) {
       // console.log(response)
       console.log(keywords)
       let keyword_set = new Set(used_keywords);
-      response.keywords.forEach(word => keyword_set.add(word));
+      response.keywords.forEach(word => {
+        if (!blacklisted_keywords.has(word)) {
+          keyword_set.add(word)
+        }
+      });
       used_keywords = [...keyword_set];
       displayEventsAsList(response.events);
       displayKeywordsAsList(used_keywords);
@@ -79,7 +86,11 @@ function getEventsFromKeywords(keywords){
     // console.log(response)
     console.log(response)
     let keyword_set = new Set(used_keywords);
-    response.keywords.forEach(word => keyword_set.add(word));
+    response.keywords.forEach(word => {
+      if (!blacklisted_keywords.has(word)) {
+        keyword_set.add(word)
+      }
+    });
     used_keywords = [...keyword_set];
     displayEventsAsList(response.events);
     displayKeywordsAsList(used_keywords);
@@ -90,6 +101,7 @@ function getEventsFromKeywords(keywords){
 function remove_keyword(kw){
   var index = used_keywords.indexOf(kw);
   if (index !== -1) used_keywords.splice(index, 1);
+  blacklisted_keywords.add(kw);
   //displayKeywordsAsList(used_keywords);
   getEventsFromKeywords(used_keywords)
 }
