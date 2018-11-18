@@ -304,7 +304,7 @@ function updateSigninStatus(isSignedIn) {
     cityDropDown.style.display = 'block';
     keywordTxtArea.style.display ='block'
     keywordLabel.style.display ='block';
-    keywordAddBtn.style.display='inline-block'
+    keywordAddBtn.style.display='block'
     sliderLabel.style.display='block';
     sliderLabel.style.fontSize="15px;"
     slider.style.display='block';
@@ -328,7 +328,7 @@ function updateSigninStatus(isSignedIn) {
     document.getElementById('keywords').innerHTML = "";
     document.getElementById('input-doc').style.display='block'
     document.getElementById('output-doc').style.display='block'
-    
+
     document.getElementById('input-doc').innerHTML = `After you login, you can choose your input parameters here`
     document.getElementById('output-doc').innerHTML =  `The events matching your footprint for the city you choose will appear here`
   }

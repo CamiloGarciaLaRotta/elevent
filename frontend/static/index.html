@@ -42,11 +42,11 @@
   <button id="youtube-logout-button" style="display: none;">Sign Out</button>
 
 
-  
+
   <div class="row">
     <div class="col s4" >
+      <div class="card-panel #fff9c4 yellow lighten-4" id="input-doc" style="display: none;"></div>
       <div id="input">
-          <div class="card-panel #fff9c4 yellow lighten-4" id="input-doc" style="display: none; position: fixed"></div>
 
           <select id="city_select" onchange="eventsByCity.call(this, event)" style="display: none;">
               <option value="" selected disabled hidden>Choose a city</option>
@@ -58,7 +58,7 @@
 
           <div id="range-input" style="margin-top: 80px">
           </div>
-          <label id="slider_label" for="range-input style="margin-top: 10px; font-size: 15px !important;"># of events</label>
+          <label id="slider_label" for="range-input" style="margin-top: 10px; font-size: 15px!important;"># of events</label>
 
 
           <div style="margin-top: 25px" id="keywords"></div>
@@ -77,7 +77,7 @@
           </div>
 
         </div>
-     
+
 
         <div class="col s8 ">
           <div class="card-panel blue lighten-3" id="output-doc" style="display: none;"></div>
