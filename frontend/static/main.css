@@ -24,9 +24,3 @@
     font-size: 20px;
 }
 
-.scrollable { 
-    height: 100px; /* or any value */
-    overflow-y: auto !important;
- }
-
-
