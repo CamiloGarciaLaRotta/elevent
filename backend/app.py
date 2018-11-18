@@ -41,11 +41,10 @@ def routes_get():
 	if 'footprint' in payload:
 		footprint = payload['footprint']
 		keywords = nlp.entities(",".join(footprint), app.config['MIN_SALIENCE'], nlp_client)
+		# keywords = nlp.classifications(",".join(footprint), app.config['MIN_CONFIDENCE'], nlp_client)
 
 	else:
 		keywords = payload['keywords']
-
-	# keywords = nlp.classifications(",".join(footprint), app.config['MIN_CONFIDENCE'], nlp_client)
 
 	related_events = []
 	if 'city' in payload:

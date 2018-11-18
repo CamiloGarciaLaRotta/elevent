@@ -1,9 +1,9 @@
 def by_city(city, country, keywords, limit, client):
-	raw_events = client.GetOpenEvents(city=city, country=country, text=', '.join(keywords), trending='desc=true')
+	raw_events = client.GetOpenEvents(city=city, country=country, text=', '.join(keywords), limited_events=True, trending='desc=true')
 	return _process_events(raw_events, limit)
 
 def by_coord(lat, lon, keywords, limit, client):
-	raw_events = client.GetOpenEvents(lat=lat, lon=lon, text=', '.join(keywords), trending='desc=true')
+	raw_events = client.GetOpenEvents(lat=lat, lon=lon, text=', '.join(keywords), limited_events=True, trending='desc=true')
 	return _process_events(raw_events, limit)
 
 def _process_events(raw_events, limit):
