@@ -50,18 +50,19 @@ async function post(payload) {
 function displayEventsAsList(events) {
   let eventList = events.reduce((result, event) => {
     result += `
-    <li>
-      <h3>
-        <a href="${event.url}">${event.name}</a>
-      </h3>
-      <ul>
-        <li>${event.group}</li>
-      </ul>
-    </li>`
+    <div>
+    <a href = "${event.url}" target="_blank">
+      <div class="col s12 m5">
+      <div class="card-panel red z-depth-2 hoverable " id="hov" style="height:200px">
+        <span class="white-text"> <p id="card-title">${event.name}</p>${event.group}
+        </span>
+      </div>
+    </div>
+  </div>`
     return result;
   }, '');
 
-  document.getElementById('events').innerHTML = `<ol>${eventList}</ol>`
+  document.getElementById('events').innerHTML = `${eventList}`
 }
 // generate a list of events in the DOM
 function displayKeywordsAsList(keywords) {
