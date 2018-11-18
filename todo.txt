@@ -1,1 +1,2 @@
-get more events from different api
+-get more events from different api
+-getting events from meetup that already took place, gotta solve that one

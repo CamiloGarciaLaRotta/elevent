@@ -4,7 +4,13 @@
 // TODO this could be a radio button with options: show 10, 15, 50, all
 const limit = 10
 
-var used_keywords;
+var used_keywords= [];
+
+function addWord(obj){
+  used_keywords.push(obj.value);
+  getEventsFromKeywords(used_keywords);
+  obj.value = ""
+}
 
 // get the events related to the footprint of the user in the chosen city
 function eventsByCity(event) {
@@ -155,6 +161,7 @@ var SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
 var authorizeButton = document.getElementById('youtube-login-button');
 var signoutButton = document.getElementById('youtube-logout-button');
 var cityDropDown = document.getElementById('city_select');
+var keywordTxtArea= document.getElementById("keyword");
 var output = document.getElementById('output');
 
 /**
@@ -193,11 +200,13 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'none';
     signoutButton.style.display = 'block';
     cityDropDown.style.display = 'block';
+    keywordTxtArea.style.display ='block'
 
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     cityDropDown.style.display = 'none';
+    keywordTxtArea.style.display ='none'
     output.childNodes.forEach(child => child.innerHTML = "");
     cityDropDown.selectedIndex = 0;
 
