@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
    <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -23,7 +25,10 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper red">
-        <a href="#" class="brand-logo center">EleventAi</a>
+        <a href="#" class="brand-logo center">EleventAI
+          <div class="btn-floating btn-small waves-effect waves-light red center" ><i class="material-icons">center_focus_strong</i></div>
+        </a> 
+
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a class="waves-effect waves-light btn green" id="youtube-login-button" style="display: none; margin-top: 10%">Authorize</a></li>
           <li><a class="waves-effect waves-light btn grey" id="youtube-logout-button" style="display: none; margin-top: 10%">Sign Out</a></li>
@@ -60,11 +65,10 @@
                       <input id="keyword" type="text" class="validate">
                       <label id="label-keyword" for="keyword">Add keyword</label>
                     </div>
-                    <a class="btn-floating btn-small waves-effect waves-light red" id="add-btn" style="margin-top: 6%; display:inline-block" ><i class="material-icons">add</i></a>
+                    <a class="btn-floating btn-small waves-effect waves-light red" id="add-btn" style="margin-top: 6%; display: none;" ><i class="material-icons">add</i></a>
                   </div>
                 </form>
               </div>
-
           </div>
 
       <div class="col s8">
